@@ -5,6 +5,7 @@ import com.voting.votingapp.entities.Poll;
 import com.voting.votingapp.service.PollService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,12 +19,18 @@ public class PollController {
     private final PollService pollService;
 
     @PostMapping
-    public Poll createPoll(@RequestBody Poll poll){
-        return pollService.createPoll(poll);
+    public ResponseEntity<Poll> createPoll(@RequestBody Poll poll){
+        return ResponseEntity.status(201).body(pollService.createPoll(poll));
     }
 
     @GetMapping
-    public List<Poll> getAllPolls(){
-        return pollService.getAllPolls();
+    public ResponseEntity<List<Poll>> getAllPolls(){
+        return ResponseEntity.status(200).body(pollService.getAllPolls());
+    }
+
+    @GetMapping("/{pollId}")
+    public ResponseEntity<Poll> getPollById(@PathVariable Long pollId){
+        return pollService.getPollById(pollId).map(ResponseEntity::ok)
+                        .orElse(ResponseEntity.noContent().build());
     }
 }

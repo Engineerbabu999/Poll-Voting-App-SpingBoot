@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -21,5 +22,9 @@ public class PollService {
 
     public List<Poll> getAllPolls() {
         return pollRepository.findAll();
+    }
+
+    public Optional<Poll> getPollById(Long pollId) {
+        return pollRepository.findById(pollId);
     }
 }
