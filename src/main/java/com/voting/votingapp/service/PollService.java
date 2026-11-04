@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class PollService {
@@ -15,5 +17,9 @@ public class PollService {
 
     public Poll createPoll(Poll poll) {
         return pollRepository.save(poll);
+    }
+
+    public List<Poll> getAllPolls() {
+        return pollRepository.findAll();
     }
 }
