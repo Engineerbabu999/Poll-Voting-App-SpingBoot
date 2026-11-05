@@ -1,6 +1,7 @@
 package com.voting.votingapp.controller;
 
 
+import com.voting.votingapp.dto.Vote;
 import com.voting.votingapp.entities.Poll;
 import com.voting.votingapp.service.PollService;
 import lombok.AllArgsConstructor;
@@ -32,5 +33,12 @@ public class PollController {
     public ResponseEntity<Poll> getPollById(@PathVariable Long pollId){
         return pollService.getPollById(pollId).map(ResponseEntity::ok)
                         .orElse(ResponseEntity.noContent().build());
+    }
+
+    @PostMapping("/vote")
+    public ResponseEntity<String> vote(@RequestBody Vote vote){
+         pollService.vote(vote.getId(), vote.getOptionIndex());
+
+         return ResponseEntity.ok("Vote has been given to ID :: "+vote.getId());
     }
 }
