@@ -14,6 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("api/polls")
 @AllArgsConstructor
+@CrossOrigin("http://localhost:4200")
 public class PollController {
 
     @Autowired
